@@ -56,6 +56,16 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
+                            <label for="placement" class="col-md-4 col-form-label text-md-right">{{ __('form.placement') }}</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="placement" id="placement">
+                                    <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'left') selected @endif value="left">Left</option>
+                                    <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'right') selected @endif value="right">Right</option>
+                                </select>
+                                <input class="form-control" id="placement" type="text" name="placement" value="{{ old('placement', isset($banner) ? $banner->placement : '') }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="link" class="col-md-4 col-form-label text-md-right">{{ __('form.link') }}</label>
                             <div class="col-md-6">
                                 <input class="form-control" id="link" type="text" name="link" value="{{ old('link', isset($banner) ? $banner->link : '') }}">
