@@ -1,0 +1,29 @@
+{
+    "name": "grundmanis/laracms-banners",
+    "description": "Laracms banners module",
+    "keywords": ["laravel", "cms", "admin", "dashboard", "panel", "content", "module", "banners"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Armand Grundmanis",
+            "email": "agrundmanis@inbox.lv"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "grundmanis/laracms": "@dev",
+        "dimsav/laravel-translatable": ">=8.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Grundmanis\\Laracms\\Modules\\Banners\\Providers\\BannerProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Grundmanis\\Laracms\\Modules\\Banners\\": "src/"
+        }
+    }
+}
