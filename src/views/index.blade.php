@@ -30,6 +30,7 @@
                         <tr>
                             <th>#</th>
                             <th>Image</th>
+                            <th>Placement</th>
                             <th>Link</th>
                             <th>Created at</th>
                             <th></th>
@@ -40,6 +41,7 @@
                         <tr>
                             <td>{{ $banner->id }}</td>
                             <td><img width="100" src="{{ asset($banner->image) }}" alt=""></td>
+                            <td>{{ $banner->placement }}</td>
                             <td>@if ($banner->link)<a href="{{ $banner->link }}">{{ $banner->link }}</a>@endif</td>
                             <td>{{ $banner->created_at }}</td>
                             <td>

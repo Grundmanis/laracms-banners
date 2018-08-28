@@ -48,7 +48,8 @@ class BannerController extends Controller
 
         $this->banner->create([
            'image' => 'banners/' . $banner,
-           'link' => $request->link
+           'link' => $request->link,
+           'placement' => $request->placement
         ]);
 
         return redirect()
@@ -82,7 +83,8 @@ class BannerController extends Controller
 
         $banner->update([
             'image' => $image,
-            'link' => $request->link
+            'link' => $request->link,
+            'placement' => $request->placement
         ]);
 
         return redirect()->back()->with('status', trans('texts.success'));

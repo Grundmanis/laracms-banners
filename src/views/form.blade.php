@@ -61,8 +61,8 @@
                                 <select class="form-control" name="placement" id="placement">
                                     <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'left') selected @endif value="left">Left</option>
                                     <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'right') selected @endif value="right">Right</option>
+                                    <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'bottom') selected @endif value="bottom">Bottom</option>
                                 </select>
-                                <input class="form-control" id="placement" type="text" name="placement" value="{{ old('placement', isset($banner) ? $banner->placement : '') }}">
                             </div>
                         </div>
                         <div class="form-group row">
