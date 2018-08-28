@@ -53,66 +53,33 @@
         <div class="container-fluid">
             <form enctype="multipart/form-data" method="POST">
                 @csrf
-
                 <div class="row">
                     <div class="col-md-6">
-                        <h3>Info</h3>
                         <div class="form-group row">
-                            <label for="blocked" class="col-md-4 col-form-label text-md-right">{{ __('form.blocked') }}</label>
-
+                            <label for="link" class="col-md-4 col-form-label text-md-right">{{ __('form.link') }}</label>
                             <div class="col-md-6">
-                                <input id="blocked" type="checkbox" name="blocked" value="1" @if($shop->blocked ?: old('blocked')) checked @endif autofocus>
-                                <input type="text" name="blocked_reason" value="{{ $shop->blocked ? $shop->blocked->reason : old('blocked_reason') }}">
+                                <input class="form-control" id="link" type="text" name="link" value="{{ old('link', isset($banner) ? $banner->link : '') }}">
                             </div>
                         </div>
-
                         <div class="form-group row">
-                            <label for="sandbox" class="col-md-4 col-form-label text-md-right">{{ __('form.sandbox') }}</label>
-
+                            <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('form.image') }}</label>
                             <div class="col-md-6">
-                                <input id="sandbox" type="checkbox" name="sandbox" value="1" @if($shop->sandbox ?: old('sandbox')) checked @endif autofocus>
+                                <input class="form-control" id="image" type="file" name="image">
                             </div>
+                            @if(isset($banner))
+                                <img width="300" src="{{ asset($banner->image) }}" alt="">
+                            @endif
                         </div>
-
-                        <div class="form-group row">
-                            <label for="xml" class="col-md-4 col-form-label text-md-right">{{ __('form.xml') }}</label>
-                            <div class="col-md-6 form-inline">
-                                <input id="xml" type="text" class="form-control{{ $errors->has('xml') ? ' is-invalid' : '' }}" name="xml"
-                                       value="{{ old('xml', $shop->xml) }}" autofocus>
-                                <small>{{ __('form.xml_hint') }}</small>
-
-                            </div>
-                        </div>
-                        @include('shop.partials.info')
-                    </div>
-                    <div class="col-md-6">
-                        <h3>Delivery</h3>
-                        @include('shop.partials.delivery')
-                        <h3>Payment</h3>
-                        @include('shop.partials.payment')
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-7">
-                        <h3>Worktime</h3>
-                        @include('shop.partials.worktime')
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('menu.update_shop') }}
+                                    {{ __('menu.save') }}
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </form>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Reviews</h3>
-                    @include('partials.shop_comments')
-                </div>
-            </div>
         </div>
     </div>
 @endsection

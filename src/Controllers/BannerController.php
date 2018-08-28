@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Grundmanis\Laracms\Modules\Banners\Models\Banner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class BannerController extends Controller
@@ -30,78 +31,75 @@ class BannerController extends Controller
      */
     public function index(Request $request)
     {
-        return view('laracms.shop::buyer.index', [
-            'buyers' => $buyers->paginate(10)
+        return view('laracms.banner::index', [
+            'banners' => $this->banner->paginate(10)
         ]);
     }
 
     public function create()
     {
-
+        return view('laracms.banner::form');
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $banner = time().'.'.$request->image->getClientOriginalExtension();
+        $request->image->move(public_path('banners'), $banner);
 
+        $this->banner->create([
+           'image' => 'banners/' . $banner,
+           'link' => $request->link
+        ]);
+
+        return redirect()
+            ->route('laracms.banners')
+            ->with('status', 'Banner created!');
     }
 
     /**
-     * @param User $user
+     * @param Banner $banner
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(User $user)
+    public function edit(Banner $banner)
     {
-        return view('laracms.shop::buyer.form', compact('user'));
+        return view('laracms.banner::form', compact('banner'));
     }
 
     /**
      * @param Request $request
-     * @param User $user
+     * @param Banner $banner
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Banner $banner)
     {
-        $password = [];
+        $image = $banner->image;
 
-        if ($request->password) {
-            $password = [
-                'password' => Hash::make($request->password)
-            ];
+        if ($request->image) {
+            $bannerImage = time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('banners'), $bannerImage);
+            $image = 'banners/' . $bannerImage;
         }
 
-        if ($request->avatar) {
-            $photoName = time().'.'.$request->avatar->getClientOriginalExtension();
-            $request->avatar->move(public_path('avatars'), $photoName);
-        }
-
-        $data = [
-            'avatar' => isset($photoName) ? asset('avatars/' . $photoName) : '',
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email
-        ];
-
-        $user->update($data + $password);
-
-        if ($request->blocked) {
-            $user->blocked()->create([
-                'reason' => $request->blocked_reason ?? ''
-            ]);
-        } else {
-            $user->blocked()->delete();
-        }
+        $banner->update([
+            'image' => $image,
+            'link' => $request->link
+        ]);
 
         return redirect()->back()->with('status', trans('texts.success'));
     }
 
     /**
-     * @param User $user
+     * @param Banner $banner
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(User $user)
+    public function destroy(Banner $banner)
     {
-        $user->delete();
+        File::delete(public_path($banner->image));
 
-        return redirect()->route('laracms.buyers')->with('status', 'Buyer deleted!');
+        $banner->delete();
+
+        return redirect()
+            ->route('laracms.banners')
+            ->with('status', 'Banner deleted!');
     }
 }
