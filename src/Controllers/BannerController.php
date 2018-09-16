@@ -3,11 +3,9 @@
 namespace Grundmanis\Laracms\Modules\Banners\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\User;
 use Grundmanis\Laracms\Modules\Banners\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Hash;
 
 class BannerController extends Controller
 {
