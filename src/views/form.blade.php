@@ -1,4 +1,4 @@
-@extends('laracms.dashboard::layouts.app', ['page' => 'Banner'])
+@extends('laracms.dashboard::layouts.app', ['page' => __('admin.menu.banner')])
 
 @section('content')
     <form enctype="multipart/form-data" method="POST">
@@ -9,9 +9,9 @@
                     <label for="placement" class="col-md-4 col-form-label text-md-right">{{ __('form.placement') }}</label>
                     <div class="col-md-6">
                         <select class="form-control" name="placement" id="placement">
-                            <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'left') selected @endif value="left">Left</option>
-                            <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'right') selected @endif value="right">Right</option>
-                            <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'bottom') selected @endif value="bottom">Bottom</option>
+                            <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'left') selected @endif value="left">{{ __('admin.left') }}</option>
+                            <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'right') selected @endif value="right">{{ __('admin.right') }}</option>
+                            <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'bottom') selected @endif value="bottom">{{ __('admin.bottom') }}</option>
                         </select>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">
-                            {{ __('menu.save') }}
+                            {{ __('admin.save') }}
                         </button>
                     </div>
                 </div>

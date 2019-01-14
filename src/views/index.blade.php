@@ -1,19 +1,19 @@
-@extends('laracms.dashboard::layouts.app', ['page' => 'Banners'])
+@extends('laracms.dashboard::layouts.app', ['page' => __('admin.menu.banners')])
 
 @section('content')
     <div class="form-group">
-        <a class="btn btn-success" href="{{ route('laracms.banners.create') }}">Create</a>
+        <a class="btn btn-success" href="{{ route('laracms.banners.create') }}">{{ __('admin.create') }}</a>
     </div>
 
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Image</th>
-                    <th>Placement</th>
-                    <th>Link</th>
-                    <th>Created at</th>
+                    <th>{{ __('admin.id') }}</th>
+                    <th>{{ __('admin.image') }}</th>
+                    <th>{{ __('admin.placement') }}</th>
+                    <th>{{ __('admin.link') }}</th>
+                    <th>{{ __('admin.created_at') }}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -26,10 +26,10 @@
                     <td>@if ($banner->link)<a href="{{ $banner->link }}">{{ $banner->link }}</a>@endif</td>
                     <td>{{ $banner->created_at }}</td>
                     <td>
-                        <a href="{{ route('laracms.banners.edit', $banner->id) }}">Edit</a>
+                        <a href="{{ route('laracms.banners.edit', $banner->id) }}">{{ __('admin.edit') }}</a>
                         |
                         <a onclick="return confirm('Are you sure?')"
-                           href="{{ route('laracms.banners.destroy', $banner->id) }}">Delete</a>
+                           href="{{ route('laracms.banners.destroy', $banner->id) }}">{{ __('admin.delete') }}</a>
                     </td>
                 </tr>
             @endforeach
