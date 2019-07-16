@@ -56,7 +56,3 @@
         </button>
     </form>
 @endsection
-
-@section('scripts')
-    <script src="{{ asset('laracms_assets/demo/demo.js') }}"></script>
-@endsection
