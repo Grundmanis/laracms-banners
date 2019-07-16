@@ -6,7 +6,7 @@
 
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">{{ __('laracms::admin.laracms_users') }}</h4>
+                <h4 class="card-title">{{ __('laracms::admin.menu.banners') }}</h4>
             </div>
             <div class="card-body">
 
