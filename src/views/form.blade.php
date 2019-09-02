@@ -1,43 +1,58 @@
-@extends('laracms.dashboard::layouts.app', ['page' => __('admin.menu.banner')])
+@extends(view()->exists('laracms.dashboard.layouts.app') ? 'laracms.dashboard.layouts.app' : 'laracms.dashboard::layouts.app', ['page' => __('laracms::admin.menu.banners')] )
 
 @section('content')
     <form enctype="multipart/form-data" method="POST">
         @csrf
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group row">
-                    <label for="placement" class="col-md-4 col-form-label text-md-right">{{ __('form.placement') }}</label>
-                    <div class="col-md-6">
-                        <select class="form-control" name="placement" id="placement">
-                            <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'left') selected @endif value="left">{{ __('admin.left') }}</option>
-                            <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'right') selected @endif value="right">{{ __('admin.right') }}</option>
-                            <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'bottom') selected @endif value="bottom">{{ __('admin.bottom') }}</option>
-                        </select>
-                    </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">{{ __('laracms::admin.menu.banners') }}</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="placement"
+                           class="col-form-label text-md-right">{{ __('laracms::admin.placement') }}</label>
+                    <select class="form-control" name="placement" id="placement">
+                        <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'left') selected
+                                @endif value="left">{{ __('admin.left') }}</option>
+                        <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'right') selected
+                                @endif value="right">{{ __('admin.right') }}</option>
+                        <option @if(old('placement', isset($banner) ? $banner->placement : '') == 'bottom') selected
+                                @endif value="bottom">{{ __('admin.bottom') }}</option>
+                    </select>
                 </div>
-                <div class="form-group row">
-                    <label for="link" class="col-md-4 col-form-label text-md-right">{{ __('form.link') }}</label>
-                    <div class="col-md-6">
-                        <input class="form-control" id="link" type="text" name="link" value="{{ old('link', isset($banner) ? $banner->link : '') }}">
-                    </div>
+                <div class="form-group">
+                    <label for="link" class="col-form-label text-md-right">{{ __('laracms::admin.link') }}</label>
+                    <input class="form-control" id="link" type="text" name="link"
+                           value="{{ old('link', isset($banner) ? $banner->link : '') }}">
                 </div>
-                <div class="form-group row">
-                    <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('form.image') }}</label>
-                    <div class="col-md-6">
-                        <input class="form-control" id="image" type="file" name="image">
-                    </div>
-                    @if(isset($banner))
-                        <img width="300" src="{{ asset($banner->image) }}" alt="">
-                    @endif
-                </div>
-                <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('admin.save') }}
-                        </button>
+                <div class="form-group">
+                    <label for="image" class="col-form-label text-md-right">{{ __('laracms::admin.image') }}</label>
+                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                        <div class="fileinput-new thumbnail">
+                            @if(isset($banner))
+                                <img src="{{ asset($banner->image) }}" alt="">
+                            @else
+                                <img src="{{ asset('laracms_assets/img/image_placeholder.jpg') }}" alt="...">
+                            @endif
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                        <div>
+                        <span class="btn btn-rose btn-round btn-file">
+                          <span class="fileinput-new">{{ __('laracms::admin.select_image') }}</span>
+                          <span class="fileinput-exists">{{ __('laracms::admin.change') }}</span>
+                          <input name="image" type="file" id="image" />
+                        </span>
+                            <a href="#" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                                <i class="fa fa-times"></i> {{ __('laracms::admin.remove') }}</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary">
+            {{ __('laracms::admin.save') }}
+        </button>
     </form>
 @endsection
